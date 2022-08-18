@@ -12,6 +12,7 @@ const BookShelfItem = ({title, id, bookList, handleChangeCallback})=>{
                 if(book.shelf===id){
                   return (<BookItem key={index} book={book} index={index} handleChangeCallback={handleChange}></BookItem>)
                 }
+                return "";
               })
             }
             

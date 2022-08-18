@@ -4,7 +4,7 @@ const BookItemSelect = ({book, currentShelf, handleChangeCallback})=>{
   return(
     <div className="book-shelf-changer">
             <select onChange={(e) => handleChange(e, book)} value={currentShelf}>
-              <option value="none" disabled>
+              <option value="empty" disabled>
                 Move to...
               </option>
               <option value="currentlyReading">

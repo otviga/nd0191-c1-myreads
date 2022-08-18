@@ -62,6 +62,7 @@ function App() {
           <SearchView
             searchBookList={searchBookList} 
             handleChangeCallback={handleChange} 
+            bookList={bookList}
             setSearchBookList={setSearchBookList}>
           </SearchView>
         </div>

@@ -3,35 +3,37 @@ import BookItem from "./BookItem";
 import { useState } from "react";
 import * as BooksApi from './BooksAPI'
 
-const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList})=>{
+const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList, bookList})=>{
 
   let handleChange=handleChangeCallback||(()=>{})
 
   const [query, setQuery] = useState("");
 
   const updateQuery= (query,setSearchBookList)=>{
-    let searchQuery=query.trim()
+    let searchQuery=query;
     setQuery(searchQuery);
     if(searchQuery.length>0){
       searchBooksApiCall(searchQuery, setSearchBookList)
     }
+    else{
+      setSearchBookList([])
+    }
   }
-  const clearSearch = (setSearchBookList)=>{
+  const clearSearch = ()=>{
     updateQuery("");
-    setSearchBookList([]);
-    console.log('clear')
   }
 
   const searchBooksApiCall = async (searchQuery, setSearchBookList)=>{
     const res = await BooksApi.search(searchQuery);
-    setSearchBookList(res);
+    const searchBooks = Array.isArray(res)?res:[];
+    setSearchBookList(searchBooks);
   }
 
 
   return(
     <div className="search-books">
         <div className="search-books-bar">
-        <Link to="/"  className="close-search" onClick={()=>{clearSearch(setSearchBookList)}}>
+        <Link to="/"  className="close-search" onClick={()=>{clearSearch()}}>
                       Close
               </Link>
           <div className="search-books-input-wrapper">
@@ -47,6 +49,10 @@ const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList})=>
           <ol className="books-grid">
             {
               searchBookList.map((book,index)=>{
+                  let tmpBook=bookList.filter(x=>x.id===book.id)
+                  if(tmpBook.length>0){
+                    book.shelf=tmpBook[0].shelf;
+                  }
                   return (<BookItem key={index} book={book} index={index} handleChangeCallback={handleChange}></BookItem>)
               })
             }
