@@ -3,22 +3,33 @@ import BookItem from "./BookItem";
 import { useState } from "react";
 import * as BooksApi from './BooksAPI'
 
+var debounceUpdateQuery=null;
 const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList, bookList})=>{
 
   let handleChange=handleChangeCallback||(()=>{})
 
   const [query, setQuery] = useState("");
 
-  const updateQuery= (query,setSearchBookList)=>{
-    let searchQuery=query;
+  
+  
+  const updateQuery= (searchQuery,setSearchBookList)=>{
+    clearTimeout(debounceUpdateQuery);
+        
+
     setQuery(searchQuery);
+
     if(searchQuery.length>0){
-      searchBooksApiCall(searchQuery, setSearchBookList)
+      debounceUpdateQuery = setTimeout(function(){
+        searchBooksApiCall(searchQuery, setSearchBookList)
+      },500)
     }
     else{
       setSearchBookList([])
     }
+    
   }
+
+
   const clearSearch = ()=>{
     updateQuery("");
   }
