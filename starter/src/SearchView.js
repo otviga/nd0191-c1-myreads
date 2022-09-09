@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import BookItem from "./BookItem";
 import { useState } from "react";
 import * as BooksApi from './BooksAPI'
+import PropTypes from "prop-types";
+
 
 var debounceUpdateQuery=null;
 const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList, bookList})=>{
@@ -12,7 +14,7 @@ const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList, bo
 
   
   
-  const updateQuery= (searchQuery,setSearchBookList)=>{
+  const updateQuery= (searchQuery)=>{
     clearTimeout(debounceUpdateQuery);
         
 
@@ -20,7 +22,7 @@ const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList, bo
 
     if(searchQuery.length>0){
       debounceUpdateQuery = setTimeout(function(){
-        searchBooksApiCall(searchQuery, setSearchBookList)
+        searchBooksApiCall(searchQuery)
       },500)
     }
     else{
@@ -34,7 +36,7 @@ const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList, bo
     updateQuery("");
   }
 
-  const searchBooksApiCall = async (searchQuery, setSearchBookList)=>{
+  const searchBooksApiCall = async (searchQuery)=>{
     const res = await BooksApi.search(searchQuery);
     const searchBooks = Array.isArray(res)?res:[];
     setSearchBookList(searchBooks);
@@ -51,7 +53,7 @@ const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList, bo
             <input
               type="text"
               placeholder="Search by title, author, or ISBN"
-              onChange={(event)=>{updateQuery(event.target.value, setSearchBookList)}}
+              onChange={(event)=>{updateQuery(event.target.value)}}
               value={query} 
             />
           </div>
@@ -72,5 +74,12 @@ const SearchView = ({searchBookList, handleChangeCallback, setSearchBookList, bo
       </div>
   )
 }
+
+SearchView.propTypes = {
+  searchBookList: PropTypes.array.isRequired,
+  bookList: PropTypes.array.isRequired,
+  handleChangeCallback: PropTypes.func.isRequired,
+  setSearchBookList: PropTypes.func.isRequired
+};
 
 export default SearchView;

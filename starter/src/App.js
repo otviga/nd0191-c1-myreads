@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import * as BooksApi from './BooksAPI'
 import MainView from "./MainView"
 import SearchView from "./SearchView";
+import NotFoundView from "./NotFoundView";
+import BookDetailView from "./BookDetailView";
 
 function App() {
   const [showBookList, setShowBookList] = useState(false);
@@ -45,28 +47,44 @@ function App() {
     }
   }
 
+
+  
+
   return (
 
     <Routes>
-      <Route exact path="/" element={
-        <div className="app">
-            <MainView 
-              showBookList={showBookList}
+        <Route exact path="/" element={
+          <div className="app">
+              <MainView 
+                showBookList={showBookList}
+                handleChangeCallback={handleChange} 
+                bookList={bookList}>
+              </MainView>
+          </div>
+        }/>
+        <Route path="/search" element={
+          <div className="app">
+            <SearchView
+              searchBookList={searchBookList} 
               handleChangeCallback={handleChange} 
-              bookList={bookList}>
-            </MainView>
-        </div>
-      }/>
-      <Route path="/search" element={
-        <div className="app">
-          <SearchView
-            searchBookList={searchBookList} 
-            handleChangeCallback={handleChange} 
-            bookList={bookList}
-            setSearchBookList={setSearchBookList}>
-          </SearchView>
-        </div>
-      }/>
+              bookList={bookList}
+              setSearchBookList={setSearchBookList}>
+            </SearchView>
+          </div>
+        }/>
+        <Route path="/books/:id" element={
+          <div className="app">
+            <BookDetailView>
+            </BookDetailView>
+          </div>
+        }/>
+        <Route path="*" element={
+          <div className="app">
+            <NotFoundView>
+            </NotFoundView>
+          </div>
+        }/>
+
     </Routes>
 
   );

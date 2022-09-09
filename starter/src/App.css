@@ -80,6 +80,44 @@ body,
   flex: 1;
   background: #e9e;
 }
+
+.not-found {
+  background: white;
+  font-size: 30px;
+  margin: auto;
+}
+
+.book-details {
+  background: white;
+  font-size: 25px;
+  margin: auto;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+}
+
+tr:nth-child(odd) {
+  background-color: #E7E9EB;
+}
+
+td  {
+  padding: 8px;
+  text-align: left;
+}
+
+td:nth-child(odd) {
+  width: 25%;
+  text-transform: uppercase;
+}
+
 .search-books-bar input {
   width: 100%;
   padding: 15px 10px;

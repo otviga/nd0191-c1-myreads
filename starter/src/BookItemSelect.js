@@ -1,4 +1,6 @@
 
+import PropTypes from "prop-types";
+
 const BookItemSelect = ({book, currentShelf, handleChangeCallback})=>{
   let handleChange=handleChangeCallback||(()=>{})
   return(
@@ -17,5 +19,11 @@ const BookItemSelect = ({book, currentShelf, handleChangeCallback})=>{
           </div>
   )
 }
+
+BookItemSelect.propTypes = {
+  book: PropTypes.object.isRequired,
+  currentShelf: PropTypes.string.isRequired,
+  handleChangeCallback: PropTypes.func.isRequired
+};
 
 export default BookItemSelect;

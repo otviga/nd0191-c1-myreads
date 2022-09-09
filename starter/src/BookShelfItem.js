@@ -1,4 +1,5 @@
 import BookItem from "./BookItem";
+import PropTypes from "prop-types";
 
 const BookShelfItem = ({title, id, bookList, handleChangeCallback})=>{
   let handleChange=handleChangeCallback||(()=>{})
@@ -21,5 +22,12 @@ const BookShelfItem = ({title, id, bookList, handleChangeCallback})=>{
       </div>
   )
 }
+
+BookShelfItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  bookList: PropTypes.array.isRequired,
+  handleChangeCallback: PropTypes.func.isRequired
+};
 
 export default BookShelfItem;

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import BookShelfItem from "./BookShelfItem";
+import PropTypes from "prop-types";
+
 
 const MainView=({handleChangeCallback, showBookList, bookList})=>{
   let handleChange=handleChangeCallback||(()=>{})
@@ -42,5 +44,11 @@ const MainView=({handleChangeCallback, showBookList, bookList})=>{
       </div>
   )
 }
+
+MainView.propTypes = {
+  showBookList: PropTypes.bool.isRequired,
+  bookList: PropTypes.array.isRequired,
+  handleChangeCallback: PropTypes.func.isRequired
+};
 
 export default MainView;
